@@ -6,10 +6,11 @@ import (
 )
 
 func Routers(app *fiber.App) {
-	app.Delete("/property", property.DeleteProperty)
-	app.Get("/property", property.GetProperty)
 	app.Post("/property", property.CreateProperty)
+	app.Get("/property", property.GetProperty)
 	app.Get("/properties", property.GetProperties)
+	app.Put("/property", property.UpdateProperty)
+	app.Delete("/property", property.DeleteProperty)
 }
 
 func main() {

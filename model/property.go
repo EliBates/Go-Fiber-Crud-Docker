@@ -61,6 +61,17 @@ func GetProperties(c *fiber.Ctx) error {
 	return c.JSON(&properties)
 }
 
+func UpdateProperty(c *fiber.Ctx) error {
+	id := c.Params("id")
+	property := new(Property)
+	DB.First(&property, id)
+	if err := c.BodyParser(&property); err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
+	DB.Save(&property)
+	return c.JSON(&property)
+}
+
 func DeleteProperty(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var property Property
