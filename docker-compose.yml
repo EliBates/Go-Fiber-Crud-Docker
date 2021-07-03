@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  back-end:
+    container_name: backend-go
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - /storage/my-app
+    depends_on:
+      - mysql_server
+  mysql_server:
+    image: mysql:8.0
+    container_name: app_database
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_USER_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3307:3306"
+    #mount the local directory as storage for the database so the storage persists between runs
+    volumes:
+      - ~/mysql:/var/lib/mysql  
